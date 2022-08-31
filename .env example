@@ -1,0 +1,8 @@
+HOST_DB=[inser the host name o url]
+USER_DB=[insert the user name of the server]
+PASSWORD_DB=[insert the password of the database]
+NAME_DB=[insert the name of the database]
+TEST_HOST_DB=[inser the host name o url]
+TEST_USER_DB=[insert the user name of the server]
+TEST_PASSWORD_DB=[insert the password of the database]
+TEST_NAME_DB=[insert the name of the database]
