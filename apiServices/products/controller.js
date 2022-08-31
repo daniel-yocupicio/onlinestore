@@ -8,6 +8,6 @@ module.exports = {
      */
     async getCategories(req, res){
         const categories = await model.getModelCategories();
-        return res.json(categories);
+        return res.json({data: categories});
     },
 };

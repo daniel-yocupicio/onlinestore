@@ -1,19 +1,30 @@
 require('dotenv').config();
 const mysql = require('mysql');
 
-var conection = mysql.createConnection({
-    host: process.env.NODE_ENV='production' ? process.env.DEPLOY_HOST_DB : process.env.HOST_DB,
-    user: process.env.NODE_ENV='production' ? process.env.DEPLOY_USER_DB : process.env.USER_DB,      
-    password: process.env.NODE_ENV='production' ? process.env.DEPLOY_PASSWORD_DB : process.env.PASSWORD_DB,      
-    database: process.env.NODE_ENV='production' ? process.env.DEPLOY_NAME_DB : process.env.NAME_DB, 
-    port: process.env.NODE_ENV='production' ? process.env.DEPLOY_PORT_DB : process.env.PORT_DB,       
-});
+const config = {
+    host: process.env.NODE_ENV=='production' ? process.env.DEPLOY_HOST_DB : process.env.HOST_DB,
+    user: process.env.NODE_ENV=='production' ? process.env.DEPLOY_USER_DB : process.env.USER_DB,      
+    password: process.env.NODE_ENV=='production' ? process.env.DEPLOY_PASSWORD_DB : process.env.PASSWORD_DB,      
+    database: process.env.NODE_ENV=='production' ? process.env.DEPLOY_NAME_DB : process.env.NAME_DB, 
+    port: process.env.NODE_ENV=='production' ? process.env.DEPLOY_PORT_DB : process.env.PORT_DB,       
+};
 
-conection.connect(function (error) {
-    if (error) {
-        throw error;
+var pool = mysql.createPool(config);
+
+exports.connection = {
+    query: async function () {
+        const queryArgs = Array.prototype.slice.call(arguments);
+        const sql = queryArgs[0];
+        const values = queryArgs[1];
+
+        return new Promise((resolve, rejected) => {
+            pool.getConnection(function(err, conn) {
+                if(err) rejected({error: true, type: 'error in connetion'});
+                conn.query(sql, values, function(error, results, fields){
+                    if(error) return rejected({error: true, type: 'error in query'});
+                    return resolve(results);
+                })
+            })
+        })
     }
-    console.log("conexión exitosa");
-});
- 
-module.exports = { conection };
+};

@@ -1,4 +1,4 @@
-const {conection} = require('../../services/mysql');
+const {connection} = require('../../services/mysql');
 
 module.exports = {
     /**
@@ -8,12 +8,15 @@ module.exports = {
         const sql = "select * from category";
 
         return new Promise((resolve, reject) => {
-            conection.query(sql, function(error, results, fields) {
-                if(error) return reject({error: 'an error occurred when querying the data'});
-                const jsonString = JSON.stringify(Object.assign({}, results));
+            connection.query(sql,[])
+            .then(data => {
+                const jsonString = JSON.stringify(Object.assign({}, data));
                 const json_obj = JSON.parse(jsonString);
                 return resolve(json_obj);
             })
-        })
+            .catch(err => {
+                return resolve(err);
+            });
+        });
     },
 };
