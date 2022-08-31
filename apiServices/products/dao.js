@@ -10,9 +10,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             connection.query(sql,[])
             .then(data => {
-                const jsonString = JSON.stringify(Object.assign({}, data));
-                const json_obj = JSON.parse(jsonString);
-                return resolve(json_obj);
+                return resolve({data: data});
             })
             .catch(err => {
                 return resolve(err);
