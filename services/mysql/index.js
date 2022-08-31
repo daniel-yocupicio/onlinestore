@@ -12,17 +12,13 @@ const config = {
 var pool = mysql.createPool(config);
 
 exports.connection = {
-    query: async function () {
-        const queryArgs = Array.prototype.slice.call(arguments);
-        const sql = queryArgs[0];
-        const values = queryArgs[1];
-
+    query: async function (sql, values) {
         return new Promise((resolve, rejected) => {
             pool.getConnection(function(err, conn) {
                 if(err) rejected({error: true, type: 'error in connetion'});
                 conn.query(sql, values, function(error, results, fields){
                     if(error) return rejected({error: true, type: 'error in query'});
-                    return resolve(results);
+                    return resolve({data: results});
                 })
             })
         })

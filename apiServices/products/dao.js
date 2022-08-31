@@ -10,7 +10,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             connection.query(sql,[])
             .then(data => {
-                return resolve({data: data});
+                return resolve(data);
             })
             .catch(err => {
                 return resolve(err);
