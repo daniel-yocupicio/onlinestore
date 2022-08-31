@@ -57,6 +57,7 @@ function onError(error){
  * Function that write the status listening in the console.
  */
 function onListening() {
+    server.keepAliveTimeout = 5000;
     const addr = server.address();
     const bind = typeof addr === 'string' 
         ? 'pipe ' + addr
