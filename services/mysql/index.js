@@ -17,7 +17,11 @@ exports.connection = {
             pool.getConnection(function(err, conn) {
                 if(err) rejected({error: true, type: 'error in connetion'});
                 conn.query(sql, values, function(error, results, fields){
-                    if(error) return rejected({error: true, type: 'error in query'});
+                    if(error) {
+                        conn.release();
+                        return rejected({error: true, type: 'error in query'});
+                    }
+                    conn.release();
                     return resolve({data: results});
                 })
             })
