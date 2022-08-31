@@ -2,13 +2,23 @@
   "name": "onlinestore",
   "version": "1.0.0",
   "description": "online store",
-  "main": "index.js",
+  "main": "./bin/www",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "cross-env NODE_ENV=development nodemon ./bin/www",
+    "start": "cross-env NODE_ENV=production node ./bin/www",
+    "test": "cross-env NODE_ENV=test"
   },
   "author": "daniel guadalupe yocupicio vazquez",
   "license": "ISC",
   "dependencies": {
-    "dotenv": "^16.0.2"
+    "body-parser": "^1.20.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1",
+    "http": "^0.0.1-security",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
   }
 }
