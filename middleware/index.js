@@ -1,7 +1,7 @@
 const createError = require('http-errors');
 
 module.exports.error404Handler = (req, res, next) => {
-    next(createError(404));
+    res.send({message: 'Ruta no encontrada'});
 };
   
 
