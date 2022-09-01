@@ -4,7 +4,7 @@ module.exports = {
     /**
      * This function return all categories. 
      * @param {*} req request parameter.
-     * @param {*} res response parameter to send categories.
+     * @param {*} res response parameter to send all categories.
      */
     async getCategories(req, res){
         const categories = await Category.findAll();
