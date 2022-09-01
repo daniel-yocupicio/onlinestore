@@ -1,10 +1,10 @@
-const dao = require('./dao');
+// Example:
+// const {DataTypes} = require('sequelize');
+// const db = require('../../services/sequelize');
 
-module.exports = {
-    /**
-     * This function create a categories model.
-     */
-    async getModelCategories(){
-        return dao.getCategories();
-    },
-};
+// const Category = db.define('Category', {
+//     id: { type: DataTypes.INTEGER },
+//     name: { type: DataTypes.STRING },
+// })
+
+// module.exports = Category;
