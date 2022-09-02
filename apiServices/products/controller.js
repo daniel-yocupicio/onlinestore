@@ -10,8 +10,8 @@ module.exports = {
             const intLimit = parseInt(limit);
             const intOffset = parseInt(offset);
             const intId = parseInt(id);
-            const categories = await Product.findAndCountAll({where: {category: intId} ,limit: intLimit, offset: intOffset})
-            return res.json({data: categories})
+            const productsbycategory = await Product.findAndCountAll({where: {category: intId} ,limit: intLimit, offset: intOffset})
+            return res.json({data: productsbycategory.rows, count: productsbycategory.count})
         } catch(e) {
             return res.json({error: true, type: 'incorrect parameter typing.'});
         }
@@ -23,8 +23,8 @@ module.exports = {
         try {
             const intLimit = parseInt(limit);
             const intOffset = parseInt(offset);
-            const products = await Product.findAll({limit: intLimit, offset: intOffset});
-            return res.json({data: products});
+            const products = await Product.findAndCountAll({limit: intLimit, offset: intOffset});
+            return res.json({data: products.rows, count: products.count});
         } catch (e) {
             return res.json({error: true, type: 'incorrect parameter typing.'});
         }
