@@ -6,6 +6,12 @@ Product.belongsTo(Category, {foreignKey: "category"});
 Category.hasMany(Product, {foreignKey: "category"});
 
 module.exports = {
+    /**
+     * This method return products by category with a range of values..
+     * @param {*} req This parameter is the params of the method get, has limit, offset and id.
+     * @param {*} res 
+     * @returns 
+     */
     async getProductsByCategory(req, res) {
         const {id, limit, offset} = req.params;
         if(!id) return res.json({error: true, type: 'Id not found.'});
@@ -21,6 +27,12 @@ module.exports = {
             return res.json({error: true, type: 'incorrect parameter typing.'});
         }
     },
+    /**
+     * This method get all products with a range of values.
+     * @param {*} req This parameter is the params of the method get, has limit and offset.
+     * @param {*} res 
+     * @returns 
+     */
     async getProducts(req, res) {
         const {limit, offset} = req.params;
         if(!limit) return res.json({error: true, type: 'Limit not found.'});
@@ -34,6 +46,12 @@ module.exports = {
             return res.json({error: true, type: 'incorrect parameter typing.'});
         }
     },
+    /**
+     * This method search the similar products in name product or name category with a range of values.
+     * @param {*} req This parameter is the params of the method get, has limit, offset and search.
+     * @param {*} res 
+     * @returns 
+     */
     async searchProduct(req, res){
         const {search, limit, offset} = req.params;
         if(!limit) return res.json({error: true, type: 'Limit not found.'});
